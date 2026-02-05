@@ -1,0 +1,37 @@
+name: Trigger Retraining on New Data
+
+on:
+  schedule:
+    # Run every day at 2 AM
+    - cron: '0 2 * * *'
+  
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      data_path:
+        description: 'GCS path to new data'
+        required: true
+        default: 'gs://your-bucket/data/new/'
+
+jobs:
+  trigger-pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check for new data
+      id: check-data
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        # Check if new data exists
+        gsutil ls ${{ github.event.inputs.data_path }} || echo "No new data"
+    
+    - name: Run Pipeline
+      if: steps.check-data.outputs.data_exists == 'true'
+      run: |
+        gcloud ai pipelines run \
+          --project=${{ secrets.GCP_PROJECT_ID }} \
+          --region=us-central1 \
+          --pipeline-spec-path=pipeline.json \
+          --parameter=input-data-path=${{ github.event.inputs.data_path }}

@@ -1,0 +1,26 @@
+# prefect.yaml
+name: mlops-pipeline
+version: "1.0.0"
+description: "MLOps pipeline with Gemini"
+
+# Define the flow
+flow:
+  name: mlops-pipeline
+  entrypoint: "src/pipeline/pipeline.py:mlops_pipeline"
+
+# Define the storage (Docker)
+storage:
+  type: docker
+  image_name: mlops-pipeline
+  image_tag: latest
+
+# Define the infrastructure (Docker container)
+infrastructure:
+  type: docker-container
+  image: "{{ storage.image_name }}:{{ storage.image_tag }}"
+  env:
+    PREFECT_API_URL: "http://localhost:4200/api"  # Change to your Prefect server
+
+# Define schedules
+schedules:
+  - interval: 86400  # Run every day (in seconds)

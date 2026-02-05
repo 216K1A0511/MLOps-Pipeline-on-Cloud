@@ -1,0 +1,37 @@
+gemini:
+  api_key: ${GEMINI_API_KEY}  # From environment variable
+  model_name: "gemini-1.5-pro"
+  temperature: 0.1
+  max_output_tokens: 8192
+  safety_settings:
+    harassment: "block_only_high"
+    hate_speech: "block_only_high"
+    sexually_explicit: "block_only_high"
+    dangerous_content: "block_only_high"
+  
+finetuning:
+  enabled: false  # Set to true when Gemini Pro supports finetuning
+  dataset_size: 1000
+  epochs: 3
+  learning_rate_multiplier: 0.1
+
+prompt_templates:
+  classification: |
+    You are an expert classifier. Given the following features:
+    {features}
+    
+    Classify into one of these categories: {categories}
+    Return only the category name and confidence score.
+    
+  regression: |
+    You are an expert predictor. Given the following features:
+    {features}
+    
+    Predict the numerical value. Return only the number.
+    
+  explanation: |
+    Explain the reasoning behind this prediction:
+    Prediction: {prediction}
+    Features: {features}
+    
+    Provide a concise explanation.
