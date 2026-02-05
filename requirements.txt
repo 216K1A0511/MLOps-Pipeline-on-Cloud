@@ -1,0 +1,7 @@
+google-generativeai
+prefect
+pandas
+numpy
+scikit-learn
+pytest
+pytest-cov
