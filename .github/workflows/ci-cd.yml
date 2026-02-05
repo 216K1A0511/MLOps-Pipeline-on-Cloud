@@ -5,6 +5,8 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'
 
 env:
   DOCKER_IMAGE_NAME: gemini-mlops-pipeline
