@@ -42,3 +42,7 @@ dist/
 # Logs
 logs/
 *.log
+
+# Data
+data/
+
