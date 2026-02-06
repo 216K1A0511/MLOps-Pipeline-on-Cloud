@@ -7,7 +7,7 @@ def generate_data():
     os.makedirs('data/raw', exist_ok=True)
 
     np.random.seed(42)
-    n_samples = 100
+    n_samples = 5
     data = {
         'feature1': np.random.rand(n_samples),
         'feature2': np.random.randint(0, 100, n_samples),

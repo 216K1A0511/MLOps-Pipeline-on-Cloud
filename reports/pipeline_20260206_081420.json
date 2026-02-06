@@ -1,0 +1,36 @@
+{
+  "accuracy": 0.0,
+  "predictions": [
+    {
+      "features": "Feature1: 0.3745401188473625, Feature2: 62, Feature3: C",
+      "predicted": "ERROR",
+      "actual": "Negative",
+      "correct": false
+    },
+    {
+      "features": "Feature1: 0.9507143064099162, Feature2: 95, Feature3: C",
+      "predicted": "ERROR",
+      "actual": "Positive",
+      "correct": false
+    },
+    {
+      "features": "Feature1: 0.7319939418114051, Feature2: 51, Feature3: C",
+      "predicted": "ERROR",
+      "actual": "Positive",
+      "correct": false
+    },
+    {
+      "features": "Feature1: 0.5986584841970366, Feature2: 95, Feature3: B",
+      "predicted": "ERROR",
+      "actual": "Negative",
+      "correct": false
+    },
+    {
+      "features": "Feature1: 0.15601864044243652, Feature2: 3, Feature3: C",
+      "predicted": "ERROR",
+      "actual": "Positive",
+      "correct": false
+    }
+  ],
+  "timestamp": "2026-02-06T08:14:20.510496"
+}

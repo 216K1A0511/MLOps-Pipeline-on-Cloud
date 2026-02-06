@@ -3,6 +3,11 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Gemini MLOps Pipeline Quick Start" -ForegroundColor Cyan
 
+# 0. Check System Requirements
+Write-Host "Checking system requirements..."
+# Check Node.js
+if (Get-Command node -ErrorAction SilentlyContinue) { Write-Host "Node.js detected" } else { Write-Host "Node.js not found (Web App skipped)" }
+
 # 1. Check for Gemini API key
 if (-not $env:GEMINI_API_KEY) {
     if (Test-Path .env) {
@@ -42,9 +47,21 @@ python src/data_processing/generate_sample_data.py
 
 # 5. Run pipeline
 Write-Host "Running ML pipeline..."
-python -m src.pipeline.pipeline `
-    --data-path "data/raw/sample_data.csv" `
-    --task-type classification `
-    --run-id "quick_start_ps1"
+# Enable Mock Mode by default for robust testing
+$env:USE_MOCK = "true"
+Write-Host "Using mock mode (no API calls). Set USE_MOCK=false to use real Gemini API." -ForegroundColor Yellow
+
+$pipelineArgs = @(
+    "-m", "src.pipeline.pipeline",
+    "--data-path", "data/raw/sample_data.csv",
+    "--task-type", "classification",
+    "--run-id", "quick_start_ps1"
+)
+
+if ($env:USE_MOCK -eq "true") {
+    $pipelineArgs += "--use-mock"
+}
+
+python @pipelineArgs
 
 Write-Host "Setup complete! Check reports/ directory for results" -ForegroundColor Green
