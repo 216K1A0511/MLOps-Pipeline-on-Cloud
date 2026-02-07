@@ -1,48 +1,29 @@
-# Environment variables
+# --- Security (CRITICAL) ---
 .env
-.env.local
+secrets.json
+*.key
+api_keys.txt
+keys.txt
 
-# Python
+# --- Python & Environments ---
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual Environment
-venv/
-env/
-ENV/
 .venv/
-
-# IDE settings
-.vscode/
-.idea/
-
-# Distribution
+venv/
+ENV/
+build/
 dist/
 
-# Logs
-logs/
-*.log
+# --- Local Data & Reports ---
+# We ignore these so your personal test results don't clutter GitHub
+data/raw/sample_data.csv
+reports/*.csv
+logs/*.log
 
-# Data
-data/
-
+# --- Infrastructure & Tools ---
+.terraform/
+*.tfstate
+*.tfstate.backup
+.prefect/
+terraform.exe

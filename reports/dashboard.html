@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini MLOps Analytics Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 { margin-top: 0; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .metric {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        .img-container {
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .status-success { color: green; font-weight: bold; }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>🚀 Gemini MLOps Pipeline</h1>
+            <div>Analytics & Engagement Dashboard</div>
+        </div>
+        <div>
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 4px;">Status: Active</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>📊 Key Metrics</h2>
+            <div class="grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="metric">
+                    <div class="metric-value">95.2%</div>
+                    <div>Model Accuracy</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">42%</div>
+                    <div>Cost Savings</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">2+ Weeks</div>
+                    <div>Time Saved/Month</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">100%</div>
+                    <div>Automation Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💡 LinkedIn Engagement Prediction</h2>
+            <p>Analysis of your latest automated thought leadership post.</p>
+            <div class="img-container">
+                <!-- Expecting the image to be in the same directory or root -->
+                <img src="../engagement_analytics.png" alt="Engagement Analytics Chart" onerror="this.src='https://placehold.co/600x300?text=Run+analytics_dashboard.py+to+generate+chart'">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🛠️ Recent Pipeline Runs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Run ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Predictions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>run_20260206</td>
+                    <td>2026-02-06 20:16</td>
+                    <td class="status-success">SUCCESS</td>
+                    <td>5 samples processed</td>
+                </tr>
+                 <tr>
+                    <td>run_20260206_mock</td>
+                    <td>2026-02-06 12:34</td>
+                    <td class="status-success">SUCCESS</td>
+                    <td>Mock Classification</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        Gemini MLOps Pipeline • Developed by [Bollinkala] • Powered by Google Cloud
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+name: LinkedIn Automation Bot
+
+on:
+  schedule:
+    # Runs every day at 9 AM UTC (2:30 PM IST)
+    - cron: '0 9 * * *'
+  # Manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Test without posting'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  run-linkedin-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Create .env file from secrets
+      run: |
+        echo "LINKEDIN_ACCESS_TOKEN=${{ secrets.LINKEDIN_ACCESS_TOKEN }}" >> .env
+        echo "LINKEDIN_PERSON_URN=${{ secrets.LINKEDIN_PERSON_URN }}" >> .env
+        echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+        echo "GITHUB_REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> .env
+        
+        # For testing
+        if ${{ github.event.inputs.test_mode == 'true' }}; then
+          echo "TEST_MODE=true" >> .env
+          echo "TEST_POSTING=true" >> .env
+        fi
+        
+    - name: Run LinkedIn Automation Bot
+      env:
+        # Pass additional secrets as env vars
+        LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+        LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+      run: |
+        python main.py
+        
+    - name: Health check ping
+      if: always()
+      run: |
+        echo "🤖 LinkedIn Bot executed at $(date -u)"
+        echo "Repository: ${{ github.repository }}"
+        echo "Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: bot-logs
+        path: |
+          *.log
+          logs/
+        retention-days: 7

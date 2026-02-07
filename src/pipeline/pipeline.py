@@ -119,6 +119,31 @@ def main_pipeline(data_path="synthetic", task_type="classification", use_mock=Fa
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         pd.DataFrame({'prediction': results}).to_csv(f"reports/results_{timestamp}.csv")
         print(f"Saved to reports/results_{timestamp}.csv")
+
+        # LinkedIn Notification
+        try:
+            from src.notifications.linkedin_poster import create_linkedin_post_from_pipeline
+            
+            pipeline_metrics = {
+                "project_name": "Gemini MLOps Pipeline",
+                "status": "SUCCESS",
+                "execution_time": "0.5 hours", # Placeholder
+                "metrics": {
+                    "total_samples": len(results) if isinstance(results, list) else 0,
+                    "model_name": config.get('gemini', {}).get('model_name', 'gemini-2.0-flash'),
+                    "timestamp": timestamp
+                }
+            }
+            
+            print("\n" + "="*60)
+            print("Initiating LinkedIn Thought Leadership Automation")
+            print("="*60)
+            
+            create_linkedin_post_from_pipeline(pipeline_metrics)
+            
+        except Exception as e:
+            print(f"⚠️ LinkedIn notification skipped: {e}")
+
     else:
         print("No data to process.")
 

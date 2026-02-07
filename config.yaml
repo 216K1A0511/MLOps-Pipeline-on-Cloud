@@ -1,0 +1,27 @@
+# Configuration for LinkedIn Bot
+linkedin:
+  posting_schedule: "0 9 * * *"  # 9 AM UTC daily
+  test_mode: false
+  max_post_length: 1300
+  
+content:
+  themes:
+    - "AI replacing traditional grunt work"
+    - "Automation saving weeks of manual work"
+    - "Cloud-native ML transformation"
+  hashtags:
+    - "#MLOps"
+    - "#CloudEngineering"
+    - "#GCP"
+    - "#MachineLearning"
+    - "#AI"
+    - "#DevOps"
+    - "#Automation"
+
+github:
+  workflow_name: "LinkedIn Automation Bot"
+  timeout_minutes: 10
+  
+logging:
+  level: "INFO"
+  file: "bot.log"

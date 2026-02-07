@@ -1,0 +1,44 @@
+name: Daily Thought Leadership Post
+
+on:
+  schedule:
+    - cron: '0 9 * * 2,4'  # Every Tuesday and Thursday at 9 AM
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  thought-leadership:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Run Thought Leadership Pipeline
+      env:
+        LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GITHUB_REPO_URL: https://github.com/${{ github.repository }}
+      run: |
+        python -c "
+        from src.notifications.linkedin_poster import LinkedInThoughtLeaderPoster
+        
+        poster = LinkedInThoughtLeaderPoster()
+        results = {
+            'project_name': 'Automated MLOps Thought Leadership',
+            'status': 'ACTIVE',
+            'key_achievement': 'Consistent industry insights sharing',
+            'time_saved': 'Ongoing automation benefits'
+        }
+        
+        result = poster.automated_thought_leadership_post(results)
+        print(f'Post Result: {result.get(\"success\", False)}')
+        "

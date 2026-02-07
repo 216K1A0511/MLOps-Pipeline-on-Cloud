@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-02-06T09:30:00.000000",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:share:mock123",
+    "predictions": {
+      "predicted_impressions": 850,
+      "predicted_likes": 42,
+      "predicted_comments": 17,
+      "predicted_shares": 8,
+      "estimated_profile_views_increase": 25,
+      "engagement_score": 1.7,
+      "best_posting_time": [
+        "Tuesday 9-11 AM",
+        "Wednesday 1-3 PM"
+      ],
+      "content_analysis": {
+        "has_question": true,
+        "hashtag_count": 6,
+        "technical_terms": 4,
+        "cloud_mentions": 2,
+        "character_count": 950,
+        "line_count": 12,
+        "engagement_triggers": [
+          "Question for engagement",
+          "Detailed technical content",
+          "Optimal hashtag usage",
+          "Technical depth"
+        ]
+      }
+    },
+    "actual": {}
+  },
+  {
+    "timestamp": "2026-02-04T14:15:00.000000",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:share:mock456",
+    "predictions": {
+      "predicted_impressions": 620,
+      "predicted_likes": 31,
+      "predicted_comments": 5,
+      "predicted_shares": 2,
+      "estimated_profile_views_increase": 18,
+      "engagement_score": 1.2,
+      "best_posting_time": [
+        "Tuesday 9-11 AM"
+      ],
+      "content_analysis": {
+        "has_question": false,
+        "hashtag_count": 3,
+        "technical_terms": 2,
+        "cloud_mentions": 1,
+        "character_count": 500,
+        "line_count": 8,
+        "engagement_triggers": []
+      }
+    },
+    "actual": {}
+  }
+]
