@@ -2,8 +2,8 @@ name: LinkedIn Automation Bot
 
 on:
   schedule:
-    # Runs every day at 9 AM UTC (2:30 PM IST)
-    - cron: '0 9 * * *'
+    # Runs every day at 9:00 AM IST (3:30 AM UTC)
+    - cron: '30 3 * * *'
   # Manual trigger for testing
   workflow_dispatch:
     inputs:
