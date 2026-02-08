@@ -294,14 +294,14 @@ The future of ML isn't about building more models—it's about building smarter 
         try:
             response = requests.get("https://api.linkedin.com/v2/me", headers=headers)
             if response.status_code == 200:
-                print("✅ LinkedIn credentials validated successfully")
+                print("[SUCCESS] LinkedIn credentials validated successfully")
                 return True
             else:
-                print(f"❌ LinkedIn credentials validation failed: {response.status_code}")
+                print(f"[ERROR] LinkedIn credentials validation failed: {response.status_code}")
                 # For demo purposes, if credentials fail, we might want to return False but not crash
                 return False 
         except Exception as e:
-            print(f"❌ Error validating credentials: {e}")
+            print(f"[ERROR] Error validating credentials: {e}")
             return False
 
     def post_to_linkedin(self, content: str) -> Dict:
@@ -355,11 +355,11 @@ The future of ML isn't about building more models—it's about building smarter 
                 # Log engagement predictions
                 self._log_engagement_metrics(engagement_prediction, post_url)
                 
-                print("✅ LinkedIn post published successfully!")
-                print(f"📊 Engagement Prediction:")
-                print(f"   • Impressions: {engagement_prediction['predicted_impressions']:,}")
-                print(f"   • Estimated Likes: {engagement_prediction['predicted_likes']}")
-                print(f"   • Engagement Score: {engagement_prediction['engagement_score']}")
+                print("[SUCCESS] LinkedIn post published successfully!")
+                print(f"[STATS] Engagement Prediction:")
+                print(f"   - Impressions: {engagement_prediction['predicted_impressions']:,}")
+                print(f"   - Estimated Likes: {engagement_prediction['predicted_likes']}")
+                print(f"   - Engagement Score: {engagement_prediction['engagement_score']}")
                 
                 return {
                     "success": True,
@@ -376,7 +376,7 @@ The future of ML isn't about building more models—it's about building smarter 
                 except:
                     error_msg += f" - {response.text}"
                 
-                print(f"❌ Failed to publish LinkedIn post: {error_msg}")
+                print(f"[ERROR] Failed to publish LinkedIn post: {error_msg}")
                 return {
                     "success": False,
                     "error": error_msg,
@@ -422,27 +422,27 @@ The future of ML isn't about building more models—it's about building smarter 
         print("="*60)
         
         # Step 1: Generate thought leadership content
-        print("\n💡 Generating thought leadership content...")
+        print("\n[INFO] Generating thought leadership content...")
         content = self.generate_thought_leadership_content(pipeline_results)
-        print(f"📝 Content generated ({len(content)} characters)")
+        print(f"[INFO] Content generated ({len(content)} characters)")
         
         # Step 2: Analyze content
-        print("\n🔍 Analyzing content for engagement...")
+        print("\n[INFO] Analyzing content for engagement...")
         content_analysis = self.analyze_content(content)
-        print(f"   • Has question: {content_analysis['has_question']}")
-        print(f"   • Technical terms: {content_analysis['technical_terms']}")
-        print(f"   • Hashtags: {content_analysis['hashtag_count']}")
-        print(f"   • Engagement triggers: {', '.join(content_analysis['engagement_triggers'])}")
+        print(f"   - Has question: {content_analysis['has_question']}")
+        print(f"   - Technical terms: {content_analysis['technical_terms']}")
+        print(f"   - Hashtags: {content_analysis['hashtag_count']}")
+        print(f"   - Engagement triggers: {', '.join(content_analysis['engagement_triggers'])}")
         
         # Step 3: Post to LinkedIn
-        print("\n📤 Posting to LinkedIn...")
+        print("\n[INFO] Posting to LinkedIn...")
         # Since this might be running in an environment without credentials,
         # checking validation here is good, but post_to_linkedin handles it too.
         # However, for user testing flow, it's safer to catch it early or provide mock success if credentials missing?
         # No, let's keep it real. If no credentials, it should fail gracefully or skip.
         
         if not self.access_token:
-             print("⚠️ No LinkedIn Access Token found. Skipping actual API call.")
+             print("[WARN] No LinkedIn Access Token found. Skipping actual API call.")
              return {
                  "success": True, # Simulate success for demo if no creds? Or Fail?
                  # Better to simulating success for the *demo* purpose if requested, but generally better to fail.
@@ -482,7 +482,7 @@ def create_linkedin_post_from_pipeline(pipeline_results: Dict) -> Dict:
     
     # Check credentials before trying to automate
     if not poster.access_token or not poster.person_urn:
-        print("⚠️ LinkedIn credentials not set in .env. Skipping LinkedIn post.")
+        print("[WARN] LinkedIn credentials not set in .env. Skipping LinkedIn post.")
         return {"success": False, "error": "Credentials not set"}
     
     return poster.automated_thought_leadership_post(enhanced_results)
@@ -512,7 +512,7 @@ if __name__ == "__main__":
         "impact": "Eliminated 2 weeks of monthly manual work"
     }
     
-    print("🧪 Testing Enhanced LinkedIn Automation...\n")
+    print("[TEST] Testing Enhanced LinkedIn Automation...\n")
     import sys
     if sys.stdout.encoding != 'utf-8':
         sys.stdout.reconfigure(encoding='utf-8')
@@ -526,12 +526,12 @@ if __name__ == "__main__":
     print("="*60)
     
     if result.get('success'):
-        print(f"✅ Success: True")
-        print(f"🔗 Post URL: {result.get('post_url', 'N/A')}")
-        print(f"🎯 Theme: {result.get('thought_leadership_theme', 'N/A')}")
+        print(f"[SUCCESS] Success: True")
+        print(f"[LINK] Post URL: {result.get('post_url', 'N/A')}")
+        print(f"[THEME] Theme: {result.get('thought_leadership_theme', 'N/A')}")
         if 'engagement_prediction' in result:
             pred = result['engagement_prediction']
-            print(f"📊 Predicted Impressions: {pred.get('predicted_impressions', 0):,}")
-            print(f"👍 Estimated Likes: {pred.get('predicted_likes', 0)}")
+            print(f"[STATS] Predicted Impressions: {pred.get('predicted_impressions', 0):,}")
+            print(f"[STATS] Estimated Likes: {pred.get('predicted_likes', 0)}")
     else:
-        print(f"❌ Error: {result.get('error', 'Unknown error')}")
+        print(f"[ERROR] Error: {result.get('error', 'Unknown error')}")
