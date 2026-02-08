@@ -27,11 +27,11 @@ jobs:
     
     - name: Run LinkedIn Bot
       env:
-        LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-        LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+        LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
+        LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: |
-        python main.py
+        python linkedin_bot.py
     
     - name: Upload Artifact
       if: always()
