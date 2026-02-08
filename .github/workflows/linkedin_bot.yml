@@ -39,7 +39,7 @@ jobs:
         echo "GITHUB_REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> .env
         
         # For testing
-        if ${{ github.event.inputs.test_mode == 'true' }}; then
+        if [ "${{ github.event.inputs.test_mode }}" == "true" ]; then
           echo "TEST_MODE=true" >> .env
           echo "TEST_POSTING=true" >> .env
         fi
