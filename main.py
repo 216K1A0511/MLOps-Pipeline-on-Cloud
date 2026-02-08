@@ -92,8 +92,10 @@ def main():
             print("Please check your LinkedIn credentials in GitHub Secrets")
             return 1
             
-    except ImportError:
-         print("[ERROR] Could not import 'src.notifications.linkedin_poster'. Make sure 'src' directory exists and dependencies are installed.")
+    except ImportError as e:
+         print(f"[ERROR] Could not import 'src.notifications.linkedin_poster': {e}")
+         import traceback
+         traceback.print_exc()
          return 1
     except Exception as e:
         print(f"[ERROR] Occurred: {e}")

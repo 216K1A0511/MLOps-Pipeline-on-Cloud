@@ -10,7 +10,7 @@ import random
 from typing import Optional, Dict, List, Any
 from datetime import datetime
 from dotenv import load_dotenv
-from google import genai
+import google.generativeai as genai
 
 # Load environment variables
 load_dotenv()
@@ -23,10 +23,11 @@ class LinkedInThoughtLeaderPoster:
         self.gemini_api_key = os.getenv('GEMINI_API_KEY')
         self.github_repo = os.getenv('GITHUB_REPO_URL', 'https://github.com/yourusername/mlops-pipeline')
         
-        self.client = None
+        self.model = None
         if self.gemini_api_key:
             try:
-                self.client = genai.Client(api_key=self.gemini_api_key)
+                genai.configure(api_key=self.gemini_api_key)
+                self.model = genai.GenerativeModel('gemini-pro')
             except Exception as e:
                 print(f"Warning: Failed to initialize Gemini Client: {e}")
         
@@ -139,7 +140,7 @@ class LinkedInThoughtLeaderPoster:
         Generate thought leadership style content using Gemini
         Inspired by FinalLayer's content strategy
         """
-        if not self.client:
+        if not self.model:
             return self._generate_fallback_content(pipeline_results)
         
         try:
@@ -188,10 +189,7 @@ class LinkedInThoughtLeaderPoster:
             Return only the post text.
             """
             
-            response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=prompt
-            )
+            response = self.model.generate_content(prompt)
             
             # Add GitHub link at the end
             post_content = response.text.strip()
